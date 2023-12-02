@@ -3,7 +3,6 @@ import React from 'react'
 import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/Welcome';
 import LoginScreen from '../screens/LoginScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import appColors from '../assets/styles/appColors';
 
 const Drawer = createDrawerNavigator();
@@ -32,7 +31,6 @@ const CustomDrawer = () => {
     <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Home' component={HomeScreen} options={{ title: 'Menú Principal' }} />
       <Drawer.Screen name='Login' component={LoginScreen} options={{ title : 'Inicio de sesión'}} />
-      <Drawer.Screen name='Settings' component={SettingsScreen} options={{ title: 'Opciones'}}/>
     </Drawer.Navigator>
   )
 }
