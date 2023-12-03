@@ -2,8 +2,14 @@ import { StyleSheet, Text, View, Image, Button, ImageBackground,} from 'react-na
 import React from 'react'
 import appColors from '../assets/styles/appColors'
 import {createStackNavigator} from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const HomeScreen = () => {
+type welcomeProps = {
+  navigation : DrawerNavigationProp<any>
+}
+
+const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
 
   return (
     <View>
@@ -12,8 +18,12 @@ const HomeScreen = () => {
         <Text style={styles.title}>Bienvenido</Text>
         <Image style={styles.waltah} source={require("..\\assets\\images\\perfil-de-usuario.webp")}/>
       </View>
-      <View style={styles.loginButton}>
-        <Button title='Iniciar sesión'/>
+      <View>
+        <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Login')}}>
+          <Text style={styles.letrasInicioSesion}>
+            Iniciar sesión
+          </Text>
+        </TouchableOpacity>
       </View>
       </ImageBackground> 
     </View>
@@ -50,7 +60,17 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: 200,
+    borderStyle: 'solid',
+    borderColor: 'white',
+    borderWidth: 1,
     alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height : 60,
+    borderRadius: 50
+  },
+  letrasInicioSesion: {
+    color: 'white',
   },
   contents: {
     height: '100%'

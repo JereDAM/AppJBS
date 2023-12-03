@@ -25,7 +25,6 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      {/* <NavigationContainer theme={myTheme}> */}
       <NavigationContainer >
         {/* <Stack.Navigator>
           <Stack.Screen name = "login" component={LoginScreen}/>
