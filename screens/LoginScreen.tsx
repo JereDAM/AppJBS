@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     fontSize: 30,
-    color: 'white'
+    color: appColors.primary
   },
   login: {
     backgroundColor: 'rgba(0,0,0,0.5)',
@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
   emailLogin:{
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: 'gray',
+    borderBottomColor: appColors.gray,
     marginTop: 40,
-    color: 'white',
+    color: appColors.primary,
     width: '90%',
     alignSelf: 'center',
   },
@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
     marginTop: 20,
-    color: 'black',
+    color: appColors.primary,
     width: '90%',
     alignSelf: 'center',
   },
   loginButton: {
     width: 200,
     borderStyle: 'solid',
-    borderColor: 'white',
+    borderColor: appColors.primary,
     borderWidth: 1,
     alignSelf: 'center',
     justifyContent: 'center',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     
   },
   letrasInicioSesion: {
-    color: 'white',
+    color: appColors.primary,
     fontSize: 20
   },
 })

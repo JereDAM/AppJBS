@@ -6,6 +6,7 @@ const appColors = {
     black: "black",
     rightGreen: '49EA46',
     wrongReed: 'EB6D66',
+    gray:'#808080'
   }
   
   export default appColors;

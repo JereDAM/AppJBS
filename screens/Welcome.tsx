@@ -54,14 +54,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 50,
-    backgroundColor: appColors.activeTab,
+    borderStyle: 'solid',
+    borderColor: appColors.primary,
+    borderWidth: 1,
     flexDirection: 'row',
     margin: '50%'
   },
   loginButton: {
     width: 200,
     borderStyle: 'solid',
-    borderColor: 'white',
+    borderColor: appColors.primary,
     borderWidth: 1,
     alignSelf: 'center',
     justifyContent: 'center',
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
   letrasInicioSesion: {
-    color: 'white',
+    color: appColors.primary,
   },
   contents: {
     height: '100%'
