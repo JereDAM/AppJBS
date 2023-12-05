@@ -19,10 +19,7 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.contents}>
       <View style={styles.titleBox}>
         {login ? <Text style={styles.title}>
-          Bienvenido,
-          <Text>
-            {user}
-          </Text>
+          Bienvenido,{user}
           </Text> 
           : 
           <Text style={styles.title}>
@@ -36,7 +33,6 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
             Iniciar sesión
           </Text>
         </TouchableOpacity>}
-
       </View>
       </ImageBackground> 
     </View>
@@ -51,7 +47,12 @@ const styles = StyleSheet.create({
     fontSize:40,
     justifyContent: 'center',
     alignSelf: 'center',
-    color: appColors.primary
+    color: appColors.primary,
+    borderRadius: 50,
+    borderStyle: 'solid',
+    borderColor: appColors.primary,
+    borderWidth: 1,
+    padding: 20
   },
   waltah: {
     justifyContent: 'center',
@@ -66,10 +67,6 @@ const styles = StyleSheet.create({
     height: 100,
     alignSelf: 'center',
     justifyContent: 'center',
-    borderRadius: 50,
-    borderStyle: 'solid',
-    borderColor: appColors.primary,
-    borderWidth: 1,
     flexDirection: 'row',
     margin: '50%'
   },

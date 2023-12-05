@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import QRScreen from '../screens/QRScreen';
+import PortfolioScreen from '../screens/PortFolioScreen';
 
-const BottomTab = () => {
+const Tab = createBottomTabNavigator();
+
+export function BottomTab() {
   return (
-    <View>
-      <Text>BottomTab</Text>
-    </View>
-  )
+    <Tab.Navigator>
+      <Tab.Screen name="PortFolio" component={PortfolioScreen} />
+      <Tab.Screen name="QR" component={QRScreen} />
+    </Tab.Navigator>
+  );
 }
-
-export default BottomTab
-
-const styles = StyleSheet.create({})

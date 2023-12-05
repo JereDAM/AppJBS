@@ -1,13 +1,21 @@
 import { StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
-import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerNavigationOptions, DrawerNavigationProp, createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/Welcome';
 import LoginScreen from '../screens/LoginScreen';
 import appColors from '../assets/styles/appColors';
+import { BottomTab } from './BottomTab';
+import { RenderUserContext } from './context/renderWordContext';
 
 const Drawer = createDrawerNavigator();
 
-const CustomDrawer = () => {
+type DrawerProps = {
+  navigation : DrawerNavigationProp<any>
+}
+
+const CustomDrawer : React.FC<DrawerProps> = ( {navigation} ) => {
+
+  const {user, login} = useContext(RenderUserContext)
 
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
     // header: ({navigation}) => <CustomHeader navigation={navigation}></CustomHeader>,
@@ -30,7 +38,8 @@ const CustomDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Home' component={HomeScreen} options={{ title: 'Menú Principal' }} />
-      <Drawer.Screen name='Login' component={LoginScreen} options={{ title : 'Inicio de sesión'}} />
+      {login ? null : <Drawer.Screen name='Login' component={LoginScreen} options={{ title : 'Inicio de sesión'}} />}
+      <Drawer.Screen name='tab' component={BottomTab} options={{ title : 'Portfolio'}} />
     </Drawer.Navigator>
   )
 }

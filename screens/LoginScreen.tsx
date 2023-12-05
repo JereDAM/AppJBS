@@ -13,12 +13,12 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
 
 
 
-  const {user, handleUser, handleLogin} = useContext(RenderUserContext)
+  const {user, handleUser, handleLogin, login} = useContext(RenderUserContext)
 
 
   return (
     <View>
-      <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
+      {/* <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
         <View style={styles.login}>
           <Text style={styles.colorLetra}>
             Inicio de sesion
@@ -32,7 +32,23 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </ImageBackground> */}
+
+      {login ? null :       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
+        <View style={styles.login}>
+          <Text style={styles.colorLetra}>
+            Inicio de sesion
+          </Text>
+          <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.emailLogin} value={user} onChangeText={user=> handleUser(user)}>
+          </TextInput>
+          <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.passwordLogin} secureTextEntry={true}/>
+          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Home')}}>
+            <Text style={styles.letrasInicioSesion}>
+              Iniciar sesión
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>}
     </View>
   )
 }
