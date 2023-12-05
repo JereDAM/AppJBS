@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, Button, ImageBackground,} from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import appColors from '../assets/styles/appColors'
 import {createStackNavigator} from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RenderUserContext } from '../components/context/renderWordContext';
 
 type welcomeProps = {
   navigation : DrawerNavigationProp<any>
@@ -11,19 +12,31 @@ type welcomeProps = {
 
 const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
 
+  const {user, login} = useContext(RenderUserContext)
+
   return (
     <View>
       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.contents}>
       <View style={styles.titleBox}>
-        <Text style={styles.title}>Bienvenido</Text>
+        {login ? <Text style={styles.title}>
+          Bienvenido,
+          <Text>
+            {user}
+          </Text>
+          </Text> 
+          : 
+          <Text style={styles.title}>
+            Bienvenido  
+          </Text>} 
         <Image style={styles.waltah} source={require("..\\assets\\images\\perfil-de-usuario.webp")}/>
       </View>
       <View>
-        <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Login')}}>
+        {login ? null : <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Login')}}>
           <Text style={styles.letrasInicioSesion}>
             Iniciar sesión
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
+
       </View>
       </ImageBackground> 
     </View>
@@ -49,7 +62,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   titleBox: {
-    width: 350,
+    width: '90%',
     height: 100,
     alignSelf: 'center',
     justifyContent: 'center',

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/Welcome';
 import LoginScreen from '../screens/LoginScreen';
@@ -41,6 +41,5 @@ const styles = StyleSheet.create({
   headerContainer: {
   },
   headerTitle: {
-
   }
 })

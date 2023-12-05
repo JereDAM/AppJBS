@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CustomDrawer from './components/CustomDrawer';
 import appColors from './assets/styles/appColors';
 import LoginScreen from './screens/LoginScreen';
+import RenderWordContextProvider from './components/context/RenderWordContextProvider';
 
 
 export default function App() {
@@ -24,14 +25,13 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <View style={styles.appContainer}>
-      <NavigationContainer >
-        {/* <Stack.Navigator>
-          <Stack.Screen name = "login" component={LoginScreen}/>
-        </Stack.Navigator> */}
-        <CustomDrawer></CustomDrawer>
-      </NavigationContainer>
-    </View>
+    <RenderWordContextProvider>
+      <View style={styles.appContainer}>
+        <NavigationContainer >
+          <CustomDrawer></CustomDrawer>
+        </NavigationContainer>
+      </View>
+    </RenderWordContextProvider>
   );
 }
 

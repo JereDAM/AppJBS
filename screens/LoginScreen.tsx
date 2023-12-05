@@ -1,9 +1,21 @@
 import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import appColors from '../assets/styles/appColors'
 import { TextInput } from 'react-native-gesture-handler'
+import { RenderUserContext } from '../components/context/renderWordContext'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-const LoginScreen = () => {
+type LoginProps ={
+  navigation: StackNavigationProp<any>
+}
+
+const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
+
+
+
+  const {user, handleUser, handleLogin} = useContext(RenderUserContext)
+
+
   return (
     <View>
       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
@@ -11,10 +23,10 @@ const LoginScreen = () => {
           <Text style={styles.colorLetra}>
             Inicio de sesion
           </Text>
-          <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.emailLogin}>
+          <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.emailLogin} value={user} onChangeText={user=> handleUser(user)}>
           </TextInput>
           <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.passwordLogin} secureTextEntry={true}/>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Home')}}>
             <Text style={styles.letrasInicioSesion}>
               Iniciar sesión
             </Text>
@@ -38,7 +50,7 @@ const styles = StyleSheet.create({
     color: appColors.primary
   },
   login: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: appColors.transparencia,
     marginTop: '20%',
     height: 500,
     width: '90%',
