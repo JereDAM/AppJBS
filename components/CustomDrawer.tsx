@@ -6,6 +6,7 @@ import LoginScreen from '../screens/LoginScreen';
 import appColors from '../assets/styles/appColors';
 import { BottomTab } from './BottomTab';
 import { RenderUserContext } from './context/renderWordContext';
+import ActividadApiScreen from '../screens/ActividadApiScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,7 +40,8 @@ const CustomDrawer : React.FC<DrawerProps> = ( {navigation} ) => {
     <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Home' component={HomeScreen} options={{ title: 'Menú Principal' }} />
       {login ? null : <Drawer.Screen name='Login' component={LoginScreen} options={{ title : 'Inicio de sesión'}} />}
-      <Drawer.Screen name='tab' component={BottomTab} options={{ title : 'Portfolio'}} />
+      {login ? null : <Drawer.Screen name='tab' component={BottomTab} options={{ title : 'Portfolio'}} />}
+      <Drawer.Screen name='Actividad' component={ActividadApiScreen} options={{ title : 'ActividadApi'}}/>
     </Drawer.Navigator>
   )
 }
