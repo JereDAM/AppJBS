@@ -47,6 +47,11 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
               Iniciar sesión
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Register')}}>
+            <Text style={styles.letrasInicioSesion}>
+              Registrase
+            </Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>}
     </View>
@@ -102,7 +107,6 @@ const styles = StyleSheet.create({
     height : 60,
     borderRadius: 50,
     marginTop: 100,
-    
   },
   letrasInicioSesion: {
     color: appColors.primary,

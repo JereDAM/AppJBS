@@ -10,11 +10,17 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
   const {children} = props
 
   const [user, setUser]= React.useState('')
-
+  const [passwordLogin, setPasswordLogin] = React.useState('')
   const [login, setLogin]= React.useState(false)
+  const [error, setError]= React.useState('');
 
   const handleLogin = () => {
-    setLogin(true)
+    if(user || passwordLogin != null){
+      setLogin(true)
+    }else{
+      setError("No hay ni usuario o contraseña");
+      setLogin(false)
+    }
   }
 
   const handleUser = (NewUser : string) => {
