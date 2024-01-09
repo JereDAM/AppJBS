@@ -47,9 +47,9 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
               Iniciar sesión
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Register')}}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Register')}}>
             <Text style={styles.letrasInicioSesion}>
-              Registrase
+              Registrarse
             </Text>
           </TouchableOpacity>
         </View>

@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext } from 'react'
 import appColors from '../assets/styles/appColors'
 import { TextInput } from 'react-native-gesture-handler'
@@ -9,9 +9,9 @@ type LoginProps ={
     navigation: StackNavigationProp<any>
   }
 
-const RegisterScreen = () => {
+const RegisterScreen: React.FC<LoginProps> = ({navigation}) => {
 
-    const {user, handleUser, handleLogin, login} = useContext(RenderUserContext)
+    const {user, handleUser, handleLogin, login, handleRegistration} = useContext(RenderUserContext)
 
   return (
     <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
@@ -20,6 +20,11 @@ const RegisterScreen = () => {
             <TextInput placeholder='Nombre' placeholderTextColor="#ffffff" style={styles.Registration}/>
             <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.Registration}/>
             <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.Registration} secureTextEntry={true}/>
+            <TouchableOpacity style={styles.RegisterButton} onPress={() => {handleRegistration; navigation.navigate('Home')}}>
+            <Text style={styles.letrasInicioSesion}>
+              Registrarse
+            </Text>
+          </TouchableOpacity>
         </View>
     </ImageBackground>
   )
@@ -64,6 +69,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height : 60,
         borderRadius: 50,
-        marginTop: 100,
-    }
+        marginTop: 150,
+    },
+    letrasInicioSesion: {
+        color: appColors.primary,
+        fontSize: 20,
+      }
 })
