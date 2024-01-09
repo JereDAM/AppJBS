@@ -4,7 +4,8 @@ type userAtributes = {
     user: string,
     login: boolean,
     handleLogin: Function,
-    handleUser: Function
+    handleUser: Function,
+    handleLogout: Function
 }
 
 const RenderUserContext = React.createContext({} as userAtributes)

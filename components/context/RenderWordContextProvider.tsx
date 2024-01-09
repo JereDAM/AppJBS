@@ -15,12 +15,16 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
   const [error, setError]= React.useState('');
 
   const handleLogin = () => {
-    if(user || passwordLogin != null){
+    if(user && passwordLogin != null){
       setLogin(true)
     }else{
       setError("No hay ni usuario o contraseña");
       setLogin(false)
     }
+  }
+
+  const handleLogout = () => {
+    setLogin(false)
   }
 
   const handleUser = (NewUser : string) => {
@@ -31,14 +35,14 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
     user,
     login,
     handleLogin,
-    handleUser
+    handleUser,
+    handleLogout
   }
   
   return (
     <RenderUserContext.Provider value= {defaultValue}>
       {children}
     </RenderUserContext.Provider>
-  
   )
 }
 

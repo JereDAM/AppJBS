@@ -12,7 +12,7 @@ type welcomeProps = {
 
 const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
 
-  const {user, login} = useContext(RenderUserContext)
+  const {user, login, handleLogout} = useContext(RenderUserContext)
 
   return (
     <View>
@@ -28,7 +28,15 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
         <Image style={styles.waltah} source={require("..\\assets\\images\\perfil-de-usuario.webp")}/>
       </View>
       <View>
-        {login ? null : <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Login')}}>
+        {login ? 
+        
+        <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogout(); navigation.navigate('Home')}}>
+          <Text style={styles.letrasInicioSesion}>
+            Cerrar Sesión
+          </Text>
+        </TouchableOpacity> : 
+        
+        <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Login')}}>
           <Text style={styles.letrasInicioSesion}>
             Iniciar sesión
           </Text>
