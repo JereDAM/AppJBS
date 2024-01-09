@@ -14,7 +14,7 @@ type DrawerProps = {
   navigation : DrawerNavigationProp<any>
 }
 
-const CustomDrawer : React.FC<DrawerProps> = ( {navigation} ) => {
+const CustomDrawer : React.FC<DrawerProps> = () => {
 
   const {user, login} = useContext(RenderUserContext)
 

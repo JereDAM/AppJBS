@@ -30,7 +30,7 @@ const getInitRequest = (httpVerb: string): RequestInit => {
       return init;
 }
 
-export const getActivity = async (TotalActivities : string): Promise<string> => {
+export const getActivity = async (): Promise<string> => {
     let actividad: string =""
 
     const request: RequestInfo = `${BORED_API_URL}${BORED_API_ENDPOINT}`

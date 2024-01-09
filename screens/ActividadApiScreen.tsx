@@ -1,11 +1,23 @@
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import appColors from '../assets/styles/appColors'
+import { getActivity } from '../services/boredService'
 
 const ActividadApiScreen = () => {
 
     let [boredActivity, setBoderActivity] = useState<string>()
+    let [dogsFacts, setDogsFacts] = useState<string[]>([]);
+    let [displaySpinner, setDisplaySpinner] = useState<boolean>(false);
 
+
+    // const newDogsFacts = await getDogsFacts(totalFacts)
+    // setDogsFacts(newDogsFacts)
+
+    
+    const data = async() => {
+        const newActivities = await getActivity()
+        setBoderActivity(newActivities)
+    }
   return (
     <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
         <View>
