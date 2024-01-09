@@ -13,6 +13,10 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
   const [passwordLogin, setPasswordLogin] = React.useState('')
   const [login, setLogin]= React.useState(false)
   const [error, setError]= React.useState('');
+  const [userRegister, setUserRegister] = React.useState('')
+  const [newUserPassword, setnewUserPassword ] = React.useState('')
+  const [userMail, setUserMail] = React.useState('')
+  const [registered, setRegistered] = React.useState(false)
 
   const handleLogin = () => {
     if(user && passwordLogin != null){
@@ -27,8 +31,21 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
     setLogin(false)
   }
 
-  const handleUser = (NewUser : string) => {
+  const handleRegistration = () => {
+    if(userRegister && newUserPassword && userMail != null){
+      setUser(userRegister)
+      setUserMail(userMail)
+      setPasswordLogin(newUserPassword)
+      setRegistered(true)
+    }else{
+      setError("No existe nombre de usuario, email o contraseña")
+    }
+  }
+
+  const handleUser = (NewUser : string, newEmail : string, newUserPassword : string) => {
     setUser(NewUser)
+    setUserMail(newEmail)
+    setPasswordLogin(newUserPassword)
   }
 
   const defaultValue: userAtributes = {
@@ -36,7 +53,8 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
     login,
     handleLogin,
     handleUser,
-    handleLogout
+    handleLogout,
+    handleRegistration
   }
   
   return (
