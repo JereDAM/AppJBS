@@ -1,5 +1,6 @@
 import React from 'react'
 import { RenderUserContext, userAtributes } from './renderWordContext'
+import { RegisterUserJson } from '../../services/practicaService'
 
 type RenderWordProviderProps = {
     children : JSX.Element | JSX.Element[]
@@ -9,43 +10,40 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
   
   const {children} = props
 
-  const [user, setUser]= React.useState('')
-  const [passwordLogin, setPasswordLogin] = React.useState('')
+  const [user, setUser]= React.useState({
+    name: '',
+    email: '',
+    password: ''
+  })
   const [login, setLogin]= React.useState(false)
-  const [error, setError]= React.useState('');
-  const [userRegister, setUserRegister] = React.useState('')
-  const [newUserPassword, setnewUserPassword ] = React.useState('')
-  const [userMail, setUserMail] = React.useState('')
   const [registered, setRegistered] = React.useState(false)
+  const [error, setError]= React.useState('');
 
   const handleLogin = () => {
-    if(user && passwordLogin != null){
+    if(user.name != null){
+      
       setLogin(true)
     }else{
-      setError("No hay ni usuario o contraseña");
+      setError("No hay usuario o contraseña");
       setLogin(false)
     }
   }
 
   const handleLogout = () => {
     setLogin(false)
+    setUser({
+      name: '',
+      email:'',
+      password:''
+    })
   }
 
-  const handleRegistration = () => {
-    if(userRegister && newUserPassword && userMail != null){
-      setUser(userRegister)
-      setUserMail(userMail)
-      setPasswordLogin(newUserPassword)
-      setRegistered(true)
-    }else{
-      setError("No existe nombre de usuario, email o contraseña")
-    }
-  }
-
-  const handleUser = (NewUser : string, newEmail : string, newUserPassword : string) => {
-    setUser(NewUser)
-    setUserMail(newEmail)
-    setPasswordLogin(newUserPassword)
+  const handleUser = (NewUser : string, newEmail : string, newPassword : string) => {
+    setUser({
+      name: NewUser,
+      email: newEmail,
+      password : newPassword
+    })
   }
 
   const defaultValue: userAtributes = {
@@ -54,7 +52,6 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
     handleLogin,
     handleUser,
     handleLogout,
-    handleRegistration
   }
   
   return (

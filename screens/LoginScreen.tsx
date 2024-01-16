@@ -4,50 +4,64 @@ import appColors from '../assets/styles/appColors'
 import { TextInput } from 'react-native-gesture-handler'
 import { RenderUserContext } from '../components/context/renderWordContext'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { loginUser } from '../services/practicaService'
 
-type LoginProps ={
+type LoginProps = {
   navigation: StackNavigationProp<any>
 }
 
-const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
+const LoginScreen: React.FC<LoginProps> = ({ navigation }) => {
 
 
 
-  const {user, handleUser, handleLogin, login} = useContext(RenderUserContext)
+  const { user, handleLogin, handleUser, login } = useContext(RenderUserContext)
 
+
+  const [nombre, setNombre] = React.useState('')
+  const [userPassword, setUserPassword] = React.useState('')
+  // const [email, setEmail] = React.useState('')
+  // const [contraseña, setContraseña] = React.useState('')
+  // const [user, setUser]= React.useState({
+  //   nombre: '',
+  //   email: '',
+  //   password:''
+  // })
+
+  const onClick = async () => {
+    const userData = await loginUser(nombre, userPassword)
+    
+    console.log(userData);
+    console.log(user);
+
+    if (userData != null) {
+      await handleLogin()
+      await handleUser(nombre)
+    } else {
+      console.log("No hay usuario o contraseña");
+    }
+  }
 
   return (
     <View>
-      {/* <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
+      {login ? null : <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
         <View style={styles.login}>
           <Text style={styles.colorLetra}>
             Inicio de sesion
           </Text>
-          <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.emailLogin} value={user} onChangeText={user=> handleUser(user)}>
+          <TextInput placeholder='Nombre de usuario' placeholderTextColor="#ffffff" style={styles.emailLogin} value={nombre} onChangeText={setNombre}>
           </TextInput>
-          <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.passwordLogin} secureTextEntry={true}/>
-          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Home')}}>
+          <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.passwordLogin} secureTextEntry={true} value={userPassword} onChangeText={setUserPassword} />
+          <TouchableOpacity style={styles.loginButton} onPress={onClick}>
             <Text style={styles.letrasInicioSesion}>
               Iniciar sesión
             </Text>
           </TouchableOpacity>
-        </View>
-      </ImageBackground> */}
-
-      {login ? null :       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
-        <View style={styles.login}>
-          <Text style={styles.colorLetra}>
-            Inicio de sesion
+          {/* <TouchableOpacity style={styles.loginButton} onPress={() => pruebaLogin()}>
+          <Text style={styles.letrasInicioSesion}>
+            Prueba
           </Text>
-          <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.emailLogin} value={user} onChangeText={user=> handleUser(user)}>
-          </TextInput>
-          <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.passwordLogin} secureTextEntry={true}/>
-          <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogin(); navigation.navigate('Home')}}>
-            <Text style={styles.letrasInicioSesion}>
-              Iniciar sesión
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Register')}}>
+        </TouchableOpacity> */}
+          <TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('Register') }}>
             <Text style={styles.letrasInicioSesion}>
               Registrarse
             </Text>
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 50,
   },
-  emailLogin:{
+  emailLogin: {
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: appColors.gray,
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
   },
-  passwordLogin:{
+  passwordLogin: {
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
@@ -104,7 +118,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    height : 60,
+    height: 60,
     borderRadius: 50,
     marginTop: 100,
   },

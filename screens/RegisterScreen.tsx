@@ -5,22 +5,36 @@ import { TextInput } from 'react-native-gesture-handler'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RenderUserContext } from '../components/context/renderWordContext'
 
+
 type LoginProps ={
     navigation: StackNavigationProp<any>
   }
 
 const RegisterScreen: React.FC<LoginProps> = ({navigation}) => {
 
-    const {user, handleUser, handleLogin, login, handleRegistration} = useContext(RenderUserContext)
+    const {handleUser} = useContext(RenderUserContext)
+
+    const [userName, setUserName] = React.useState('')
+    const [userPassword, setUserPassword] = React.useState('')
+
+    const onClickRegisterButton = () => {
+      // comprobar campos no vacios
+      // enviar los datos a la api
+      // si la respuesta de la api es correcta, el usuario que me devuelve lo guardo en el contexto
+      // navego a la pantalla de inicio
+      // si la respuesta de la api es incorrecta, muestro un error al usuario
+
+      navigation.navigate('Home')
+    }
 
   return (
     <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
         <View style = {styles.RegisterBox}>
             <Text style = {styles.prueba}>Registrate</Text>
-            <TextInput placeholder='Nombre' placeholderTextColor="#ffffff" style={styles.Registration}/>
+            <TextInput placeholder='Nombre' placeholderTextColor="#ffffff" style={styles.Registration} value={userName} onChangeText={setUserName}/>
             <TextInput placeholder='Email' placeholderTextColor="#ffffff" style={styles.Registration}/>
-            <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.Registration} secureTextEntry={true}/>
-            <TouchableOpacity style={styles.RegisterButton} onPress={() => {handleRegistration; navigation.navigate('Home')}}>
+            <TextInput placeholder='Contraseña' placeholderTextColor="#ffffff" style={styles.Registration} secureTextEntry={true} value={userPassword} onChangeText={setUserPassword}/>
+            <TouchableOpacity style={styles.RegisterButton} onPress={() => {onClickRegisterButton()}}>
             <Text style={styles.letrasInicioSesion}>
               Registrarse
             </Text>

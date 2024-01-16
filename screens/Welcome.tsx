@@ -1,16 +1,19 @@
-import { StyleSheet, Text, View, Image, Button, ImageBackground,} from 'react-native'
+import { StyleSheet, Text, View, Image, Button, ImageBackground, Pressable,} from 'react-native'
 import React, { useContext } from 'react'
 import appColors from '../assets/styles/appColors'
 import {createStackNavigator} from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RenderUserContext } from '../components/context/renderWordContext';
+import { loginUser } from '../services/practicaService';
+
 
 type welcomeProps = {
   navigation : DrawerNavigationProp<any>
 }
 
 const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
+
 
   const {user, login, handleLogout} = useContext(RenderUserContext)
 
@@ -19,7 +22,7 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.contents}>
       <View style={styles.titleBox}>
         {login ? <Text style={styles.title}>
-          Bienvenido,{user}
+          Bienvenido,{user.name}
           </Text> 
           : 
           <Text style={styles.title}>
@@ -29,7 +32,6 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
       </View>
       <View>
         {login ? 
-        
         <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogout(); navigation.navigate('Home')}}>
           <Text style={styles.letrasInicioSesion}>
             Cerrar Sesión

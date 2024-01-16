@@ -1,12 +1,12 @@
 import React from 'react'
+import { RegisterUserJson } from '../../services/practicaService'
 
 type userAtributes = {
-    user: string,
+    user: RegisterUserJson,
     login: boolean,
     handleLogin: Function,
     handleUser: Function,
     handleLogout: Function,
-    handleRegistration: Function
 }
 
 const RenderUserContext = React.createContext({} as userAtributes)
