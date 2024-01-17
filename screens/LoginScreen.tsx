@@ -12,10 +12,7 @@ type LoginProps = {
 
 const LoginScreen: React.FC<LoginProps> = ({ navigation }) => {
 
-
-
   const { user, handleLogin, handleUser, login } = useContext(RenderUserContext)
-
 
   const [nombre, setNombre] = React.useState('')
   const [userPassword, setUserPassword] = React.useState('')

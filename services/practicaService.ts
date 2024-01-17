@@ -1,5 +1,6 @@
 const ADRIAN_API_URL = 'http://172.16.100.55:8888'
-const TOTAL_REGISTROS_API = '/users/login'
+const LOGIN_USER_API = '/users/login'
+const REGISTER_USER_API = '/users/register'
 
 export type RegisterUserJson = {
     name: string,
@@ -18,15 +19,15 @@ const getInitRequest = (httpVerb : string, body: RegisterUserJson) : RequestInit
   return init
 }
 
-export const loginUser = async (username : string, pwd : string) => {
+export const loginUser = async (userName : string, pwd : string) => {
   const newUser: RegisterUserJson = {
-    name: username,
+    name: userName,
     email : '',
     password : pwd
   }
   console.log(newUser)
-    const response = await fetch(
-    ADRIAN_API_URL + '/users/login', getInitRequest('POST', newUser)
+  const response = await fetch(
+    ADRIAN_API_URL + LOGIN_USER_API, getInitRequest('POST', newUser)
   );
   const json = await response.json()
   console.log(response.status);
@@ -42,9 +43,24 @@ export const loginUser = async (username : string, pwd : string) => {
   }
 }
 
-// export const registerUser = async (userName : string, email : string, pwd : string) => {
+export const registerUser = async (newUser : RegisterUserJson) => {
+  
+  const response = await fetch(
+    ADRIAN_API_URL + REGISTER_USER_API, getInitRequest('POST', newUser)
+  );
+  const json = await response.json()
+  console.log(response.status);
 
-// }
+  if(response.status === 401){
+    console.log("NOOOOOOOOOOOOOOOOOOO");
+    return null
+  }if (response.status === 200 || response.status === 201) {
+    return json
+  } else {
+    console.log("OTRO ERROOOOOOOOOOOOOOOR", response.status);
+    return null
+  }
+}
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { RenderUserContext, userAtributes } from './renderWordContext'
-import { RegisterUserJson } from '../../services/practicaService'
+
 
 type RenderWordProviderProps = {
     children : JSX.Element | JSX.Element[]
@@ -38,7 +38,7 @@ const RenderWordContextProvider = (props : RenderWordProviderProps) => {
     })
   }
 
-  const handleUser = (NewUser : string, newEmail : string, newPassword : string) => {
+  const handleUser = async (NewUser : string, newEmail : string, newPassword : string) => {
     setUser({
       name: NewUser,
       email: newEmail,
