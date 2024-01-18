@@ -25,7 +25,7 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
     } else {
       console.log("Huvo un error al cerrar sesión");
       
-    }
+    }   
   }
 
   return (
