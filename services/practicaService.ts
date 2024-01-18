@@ -1,5 +1,6 @@
-const ADRIAN_API_URL = 'http://172.16.100.55:8888'
+const ADRIAN_API_URL = 'http://192.168.0.102:8888'
 const LOGIN_USER_API = '/users/login'
+const LOGOUT_USER_API = '/users/logout'
 const REGISTER_USER_API = '/users/register'
 
 export type RegisterUserJson = {
@@ -60,6 +61,34 @@ export const registerUser = async (newUser : RegisterUserJson) => {
     console.log("OTRO ERROOOOOOOOOOOOOOOR", response.status);
     return null
   }
+}
+
+export const logOut = async (url:string) => {
+  const init =  {
+      method:'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+  }
+  const response = await fetch(url,init)
+  return response
+}
+
+export const userlogOut = async ()=>{
+  try {
+      const response = await logOut(`${ADRIAN_API_URL}${LOGOUT_USER_API}`);
+
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        console.error("Error en la respuesta del servidor:", response);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud de login:", error);
+      return null;
+    }
 }
 
 

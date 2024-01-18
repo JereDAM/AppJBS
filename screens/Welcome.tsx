@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RenderUserContext } from '../components/context/renderWordContext';
-import { loginUser } from '../services/practicaService';
+import { loginUser, userlogOut } from '../services/practicaService';
 
 
 type welcomeProps = {
@@ -16,6 +16,17 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
 
 
   const {user, login, handleLogout} = useContext(RenderUserContext)
+
+  const userLogout = async () => {
+    const serviceLogout = await userlogOut()
+    if(serviceLogout != null){
+      handleLogout()
+      navigation.navigate('Home')
+    } else {
+      console.log("Huvo un error al cerrar sesión");
+      
+    }
+  }
 
   return (
     <View>
@@ -32,7 +43,7 @@ const HomeScreen : React.FC<welcomeProps> = ( {navigation} ) => {
       </View>
       <View>
         {login ? 
-        <TouchableOpacity style={styles.loginButton} onPress={() => {handleLogout(); navigation.navigate('Home')}}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => {userLogout()}}>
           <Text style={styles.letrasInicioSesion}>
             Cerrar Sesión
           </Text>
