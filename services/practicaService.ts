@@ -80,6 +80,7 @@ export const userlogOut = async ()=>{
       const response = await logOut(`${ADRIAN_API_URL}${LOGOUT_USER_API}`);
 
       if (response.status === 200) {
+        console.log(response.status);
         return response.json();
       } else {
         console.error("Error en la respuesta del servidor:", response);
