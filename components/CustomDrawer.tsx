@@ -8,6 +8,7 @@ import { BottomTab } from './BottomTab';
 import { RenderUserContext } from './context/renderWordContext';
 import ActividadApiScreen from '../screens/ActividadApiScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import RecordingScreen from '../screens/RecordingScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +42,8 @@ const CustomDrawer : React.FC<DrawerProps> = () => {
     <Drawer.Navigator initialRouteName='Home' screenOptions={drawerNavigatorScreenOptions}>
       <Drawer.Screen name='Home' component={HomeScreen} options={{ title: 'Menú Principal' }} />
       {login ? null : <Drawer.Screen name='Login' component={LoginScreen} options={{ title : 'Inicio de sesión'}} />}
-      {login ? null : <Drawer.Screen name='tab' component={BottomTab} options={{ title : 'Portfolio'}} />}
+      {!login ? null : <Drawer.Screen name='tab' component={BottomTab} options={{ title : 'Portfolio'}} />}
+      {!login ? null : <Drawer.Screen name='recordAudio' component={RecordingScreen} options={{ title : 'Grabadora'}} />}
       <Drawer.Screen name='Actividad' component={ActividadApiScreen} options={{ title : 'ActividadApi'}}/>
       <Drawer.Screen name='Register' component={RegisterScreen} options={{title : 'Registrarse'}}/>
     </Drawer.Navigator>

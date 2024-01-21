@@ -1,4 +1,4 @@
-const ADRIAN_API_URL = 'http://192.168.0.102:8888'
+const ADRIAN_API_URL = 'http://192.168.0.103:8888'
 const LOGIN_USER_API = '/users/login'
 const LOGOUT_USER_API = '/users/logout'
 const REGISTER_USER_API = '/users/register'
