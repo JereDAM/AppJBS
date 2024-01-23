@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 //Recordatorio, importar el elemento 'Audio' a manija
 
-type RecordFile= {
+export type RecordFile= {
     duration : string,
     sound: Sound,
     file: string | null | undefined
