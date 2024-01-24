@@ -1,9 +1,10 @@
 import { Button, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View,} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AVPlaybackStatusSuccess, Audio } from 'expo-av'
 import appColors from '../assets/styles/appColors'
 import { Sound, SoundObject } from 'expo-av/build/Audio'
 import { ScrollView } from 'react-native-gesture-handler'
+import { getAudios, storeAudios } from '../services/recordStorage'
 // import { Recording } from 'expo-av/build/Audio'
 
 //Recordatorio, importar el elemento 'Audio' a manija
@@ -11,7 +12,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 export type RecordFile= {
     duration : string,
     sound: Sound,
-    file: string | null | undefined
+    file: string | null | undefined,
 }
 
 const RecordingScreen = () => {
@@ -23,20 +24,29 @@ const RecordingScreen = () => {
 
     // const playRecordFile = async(recordFile : RecordFile) : Promise<void> => {
     //     const playbackObject = new Audio.Sound()
-    //     await playbackObject.loadAsync({ uri: recordFile.uri});
+    //     await playbackObject.loadAsync({ uri: recordFile.file!});
     //     await playbackObject.playAsync()
     // }
 
+    useEffect(() => {
+        const allAudios = async () =>{
+            let audioList = await getAudios()
+            if(audioList !== null){
+                setRecordingList(audioList)
+            }
+        }
+        allAudios()
+    }, [])
+    
     const startRecording = async() => {
         try {
             const permission = await Audio.requestPermissionsAsync()
 
             if(permission.granted){
                 const { recording } = await Audio.Recording.createAsync(
-                    Audio.RecordingOptionsPresets.HIGH_QUALITY       //Aqui hay algo de HIGHQUALITY
+                    Audio.RecordingOptionsPresets.HIGH_QUALITY       //Aqui se le indica la cualidad, hay que ponerlo a manija
                 )
                 setRecording(recording)
-                // setIsPlaying(true)
             } else {
                 setMessage('Debes conceder permisos a la App para poder grabar')
             }
@@ -47,21 +57,25 @@ const RecordingScreen = () => {
 
     const stopRecording = async() => {
         setRecording(undefined)
-        // setIsPlaying(false)
+
         await recording?.stopAndUnloadAsync()
-        // await recording.stopAndUnloadAsync()
-        const updatedRecordings : RecordFile[] = [...recordingList]
         const userRecording  = await recording?.createNewLoadedSoundAsync()
         const uri = recording?.getURI()
         console.log('Recording stopped and stored at', uri);
         if ("durationMillis" in userRecording!.status){
-            updatedRecordings.push({
+            let newRecord : RecordFile = {
                 sound: userRecording!.sound,
                 duration: getDurationFormatted(userRecording!.status!.durationMillis!), //Se le pone exclamaciones para decirle al programa que le aseguras que vas a pasarlo y no un undefined
                 file: recording!.getURI()
-            })
+            }
+            setRecordingList((existingList) => ([...existingList, newRecord]))
+            await storeAudios([...recordingList, newRecord])
         }
-        setRecordingList(updatedRecordings)
+    }
+
+    const DeleteRecordings = async () => {
+        setRecordingList(([]))
+        await storeAudios([])
     }
 
     const getDurationFormatted = (milliseconds : number) => {
@@ -100,6 +114,11 @@ const RecordingScreen = () => {
             <Text style={styles.letrasGrabacion}>
             Grabar
           </Text>}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.RecordingButton} onPress={DeleteRecordings}>
+            <Text>
+            BORRAR TODO
+            </Text>
         </TouchableOpacity>
         <ScrollView style={styles.scroll}>
             {getRecordingLines()}
