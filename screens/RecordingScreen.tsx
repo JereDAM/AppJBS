@@ -1,4 +1,4 @@
-import { Button, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View,} from 'react-native'
+import { Button, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View, Animated} from 'react-native'
 import React, { useEffect } from 'react'
 import { AVPlaybackStatusSuccess, Audio } from 'expo-av'
 import appColors from '../assets/styles/appColors'
@@ -20,6 +20,7 @@ const RecordingScreen = () => {
     const [recording, setRecording] = React.useState<Audio.Recording>();
     const [recordingList, setRecordingList] = React.useState<RecordFile[]>([]);
     const [message, setMessage] = React.useState('');
+    const [fade, setFade] = React.useState(new Animated.Value(0))
     // const [playing, setIsPlaying] = React.useState<Boolean>(false)
 
     // const playRecordFile = async(recordFile : RecordFile) : Promise<void> => {
@@ -38,7 +39,27 @@ const RecordingScreen = () => {
         allAudios()
     }, [])
     
+    const fadeAnimation = () => {{
+        Animated.sequence([
+            Animated.timing(fade, {
+                toValue: 1, 
+                duration: 1000,
+                useNativeDriver: true
+                }),            
+            Animated.timing(fade, 
+                    {toValue: 0, 
+                    duration: 1000,
+                    useNativeDriver: true
+                }),
+        ]).start(() => {
+            fadeAnimation()
+        })
+    }}
+        
+    
+
     const startRecording = async() => {
+        {fadeAnimation()}
         try {
             const permission = await Audio.requestPermissionsAsync()
 
@@ -104,9 +125,9 @@ const RecordingScreen = () => {
     <View>
       <ImageBackground source={require("..\\assets\\images\\espacio.jpg")} resizeMode='cover' style={styles.backGround}>
         <TouchableOpacity style={styles.RecordingButton} onPress={recording ? stopRecording : startRecording}>
-            {recording ? <Text style={styles.letrasGrabacion}>
+            {recording ? <Animated.Text style={{...styles.letrasGrabacion , opacity: fade}}>
               Grabando...
-            </Text> : 
+            </Animated.Text> : 
             <Text style={styles.letrasGrabacion}>
             Grabar
           </Text>}
