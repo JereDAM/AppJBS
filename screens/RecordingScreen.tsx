@@ -79,16 +79,12 @@ const RecordingScreen = () => {
     }
 
     const getDurationFormatted = (milliseconds : number) => {
-        
-        let minutesDisplay;
-        let secondsDisplay;
-        
-            const minutes = milliseconds
-            minutesDisplay = Math.floor(minutes)
-            const seconds = Math.round((minutes - minutesDisplay) * 60)
-            secondsDisplay = seconds < 60 ? `0${seconds}` : seconds
-        
-        return `${minutesDisplay} : ${secondsDisplay}`
+        const minutes = milliseconds / 1000 / 60
+        const minutesDisplay =  Math.floor(minutes)
+        const seconds = Math.round((minutes - minutesDisplay) * 60)
+        const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds
+
+        return `${minutesDisplay}:${secondsDisplay}`
     }
 
     //.Sound da error, no existe en el tipo never
@@ -116,7 +112,7 @@ const RecordingScreen = () => {
           </Text>}
         </TouchableOpacity>
         <TouchableOpacity style={styles.RecordingButton} onPress={DeleteRecordings}>
-            <Text>
+            <Text style={styles.letrasGrabacion}>
             BORRAR TODO
             </Text>
         </TouchableOpacity>
